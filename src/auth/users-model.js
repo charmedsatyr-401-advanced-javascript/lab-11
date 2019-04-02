@@ -40,7 +40,6 @@ users.pre('save', function(next) {
  */
 users.statics.authenticateBasic = function(auth) {
   let query = { username: auth.username };
-  console.log('query:', query);
   return this.findOne(query)
     .then(user => user && user.comparePassword(auth.password))
     .catch(console.error);
@@ -48,19 +47,15 @@ users.statics.authenticateBasic = function(auth) {
 
 // Compare a plain text password against the hashed one we have saved
 users.methods.comparePassword = function(password) {
-  console.log('user.methods.comparePassword: this:', this);
   return bcrypt.compare(password, this.password).then(valid => (valid ? this : null));
 };
 
 // Generate a JWT from the user id and a secret
 users.methods.generateToken = function() {
-  console.log('this:', this);
-  console.log('this.acl:', this.acl);
   let tokenData = {
     id: this._id,
     capabilities: (this.acl && this.acl.capabilities) || [],
   };
-  console.log('tokenData:', tokenData);
   console.log(jwt.sign(tokenData, process.env.SECRET || 'changeit'));
   return jwt.sign(tokenData, process.env.SECRET || 'changeit');
 };
