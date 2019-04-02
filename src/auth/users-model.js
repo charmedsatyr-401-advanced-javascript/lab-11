@@ -2,7 +2,7 @@
 
 /**
  * Users model - a mongoose schema with custom methods as validation helpers
- * @module auth/users-model.js
+ * @module auth/users-model
  */
 
 const mongoose = require('mongoose');
@@ -20,6 +20,9 @@ const users = new mongoose.Schema({
  * A pre-save hook for the `users` object that
  * hashes passwords with `bcrypt` before they
  * are saved to the database.
+ * @method
+ * @param next {function} Express middleware function
+
  */
 users.pre('save', function(next) {
   bcrypt
@@ -35,8 +38,10 @@ users.pre('save', function(next) {
 
 /**
  * A static class method that queries the database for a user
- * and authenticates his password using the `bcrypt`-based
+ * and authenticates their password using the `bcrypt`-based
  * `comparePassword` method.
+ * @method
+ * @param auth {object} Receives the `user` object
  */
 users.statics.authenticateBasic = function(auth) {
   let query = { username: auth.username };

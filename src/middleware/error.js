@@ -1,11 +1,12 @@
 'use strict';
 /**
  * Error 500 Middleware
- * @module middleware/error.js
+ * @module middleware/error
  */
 
 /**
  * Error 500 handler - Returns a JSON object on a server error
+ * @function
  * @param err {object} Express error object
  * @param req {object} Express request object
  * @param res {object} Express response object

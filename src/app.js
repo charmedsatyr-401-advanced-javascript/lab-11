@@ -1,6 +1,6 @@
 'use strict';
 
-const cwd = process.cwd;
+const cwd = process.cwd();
 
 // 3rd Party Resources
 const express = require('express');

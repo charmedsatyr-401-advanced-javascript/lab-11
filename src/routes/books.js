@@ -3,7 +3,7 @@
 /**
  * Books router module
  * Handles routes to send book data to authenticated users
- * @module routes/books.js
+ * @module routes/books
  */
 
 const express = require('express');
@@ -15,6 +15,7 @@ router.get('/books/:id', auth, handleGetOne);
 
 // Route Handlers
 /**
+ * @function
  * @param req {object} Express request object
  * @param res {object} Express response object
  * @param next {function} Express middleware function
@@ -27,9 +28,10 @@ function handleGetAll(req, res, next) {
   res.status(200).json(books);
 }
 /**
- * @param  {} req
- * @param  {} res
- * @param  {} next
+ * @function
+ * @param req {object} Express request object
+ * @param res {object} Express response object
+ * @param next {function} Express middleware function
  */
 function handleGetOne(req, res, next) {
   let book = {

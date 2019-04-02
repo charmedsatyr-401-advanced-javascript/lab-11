@@ -2,12 +2,18 @@
 
 /**
  * Authentication middleware module
- * @module auth/middleware.js
+ * @module auth/middleware
  */
 
 // Import the mongoose user model
 const User = require('./users-model.js');
 
+/**
+ * @name authentication middleware
+ * @param  {object} req
+ * @param  {object} res
+ * @param  {object} next
+ */
 module.exports = (req, res, next) => {
   try {
     let [authType, authString] = req.headers.authorization.split(/\s+/);
@@ -21,8 +27,8 @@ module.exports = (req, res, next) => {
   } catch (e) {
     return _authError();
   }
+
   /**
-   * @function
    * @name _authBasic Parses authentication header and passes it into a user model method `authenticateBasic`
    * @param authString {string} Base64 encoding of the `id` and `password` joined by a colon.
    */
@@ -36,7 +42,6 @@ module.exports = (req, res, next) => {
   }
 
   /**
-   * @function
    * @name _authenticate Attaches `user` object and authentication token to the request object.
    * @param user {object} The `user` object validated by `bcrypt`
    */
@@ -50,7 +55,6 @@ module.exports = (req, res, next) => {
     }
   }
   /**
-   * @function
    * @name _authError Calls the `next` middleware with an error object.
    */
   function _authError() {

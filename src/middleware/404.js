@@ -2,11 +2,12 @@
 
 /**
  * Error 404 Middleware
- * @module middleware/404.js
+ * @module middleware/404
  */
 
 /**
  * Sends a custom 404 response
+ * @function
  * @param req {object} Express request object
  * @param res {object} Express response object
  * @param next {function} Express middleware function

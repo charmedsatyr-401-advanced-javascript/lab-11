@@ -2,7 +2,7 @@
 
 /**
  * Authentication router module - Allows signup (user creation) and signin authentication
- * @module auth/router.js
+ * @module auth/router
  */
 
 const express = require('express');
@@ -14,9 +14,9 @@ const auth = require('./middleware.js');
 /**
  * @function
  * @name /signup POST route handler
- * @param  {object} req
- * @param  {object} res
- * @param  {object} next
+ * @param req {object} Express request object
+ * @param res {object} Express response object
+ * @param next {function} Express middleware function
  */
 authRouter.post('/signup', (req, res, next) => {
   let user = new User(req.body);
@@ -35,9 +35,9 @@ authRouter.post('/signup', (req, res, next) => {
 /**
  * @function
  * @name /signin POST route handler
- * @param  {object} req
- * @param  {object} res
- * @param  {object} next
+ * @param req {object} Express request object
+ * @param res {object} Express response object
+ * @param next {function} Express middleware function
  */
 authRouter.post('/signin', auth, (req, res, next) => {
   res.cookie('auth', req.token);

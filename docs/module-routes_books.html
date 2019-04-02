@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: js</title>
+    <title>JSDoc: Module: routes/books</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: js</h1>
+    <h1 class="page-title">Module: routes/books</h1>
 
     
 
@@ -28,16 +28,35 @@
 
 <header>
     
+        
+            
+        
+    
 </header>
 
 <article>
     <div class="container-overview">
     
         
-            <div class="description">Authentication router module - Allows signup (user creation) and signin authentication</div>
+            <div class="description">Books router module
+Handles routes to send book data to authenticated users</div>
         
 
         
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -69,7 +88,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_router.js.html">auth/router.js</a>, <a href="auth_router.js.html#line3">line 3</a>
+        <a href="routes_books.js.html">routes/books.js</a>, <a href="routes_books.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -79,6 +98,22 @@
 
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         
@@ -108,7 +143,7 @@
     
 
     
-    <h4 class="name" id="~/signinPOSTroutehandler"><span class="type-signature">(inner) </span>/signin POST route handler<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~handleGetAll"><span class="type-signature">(inner) </span>handleGetAll<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -164,7 +199,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Express request object</td>
         </tr>
 
     
@@ -187,7 +222,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Express response object</td>
         </tr>
 
     
@@ -200,7 +235,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">function</span>
 
 
             
@@ -210,7 +245,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Express middleware function</td>
         </tr>
 
     
@@ -251,7 +286,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_router.js.html">auth/router.js</a>, <a href="auth_router.js.html#line35">line 35</a>
+        <a href="routes_books.js.html">routes/books.js</a>, <a href="routes_books.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -285,7 +320,7 @@
     
 
     
-    <h4 class="name" id="~/signupPOSTroutehandler"><span class="type-signature">(inner) </span>/signup POST route handler<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~handleGetOne"><span class="type-signature">(inner) </span>handleGetOne<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -341,7 +376,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Express request object</td>
         </tr>
 
     
@@ -364,7 +399,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Express response object</td>
         </tr>
 
     
@@ -377,7 +412,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">function</span>
 
 
             
@@ -387,7 +422,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Express middleware function</td>
         </tr>
 
     
@@ -428,7 +463,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_router.js.html">auth/router.js</a>, <a href="auth_router.js.html#line14">line 14</a>
+        <a href="routes_books.js.html">routes/books.js</a>, <a href="routes_books.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -472,13 +507,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="auth_middleware.module_js.html">js</a></li><li><a href="auth_router.module_js.html">js</a></li><li><a href="auth_users-model.module_js.html">js</a></li><li><a href="middleware_404.html#.module:js">js</a></li><li><a href="middleware_error.html#.module:js">js</a></li><li><a href="routes_books.module_js.html">js</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-auth_middleware.html">auth/middleware</a></li><li><a href="module-auth_router.html">auth/router</a></li><li><a href="module-auth_users-model.html">auth/users-model</a></li><li><a href="module-middleware_404.html">middleware/404</a></li><li><a href="module-middleware_error.html">middleware/error</a></li><li><a href="module-routes_books.html">routes/books</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 01 2019 22:57:51 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 01 2019 23:27:13 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
