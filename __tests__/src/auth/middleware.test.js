@@ -12,9 +12,9 @@ let users = {
 
 beforeAll(async done => {
   await supergoose.startDB();
-  const adminUser = await new Users(users.admin).save();
-  const editorUser = await new Users(users.editor).save();
-  const userUser = await new Users(users.user).save();
+  const adminUser = await new Users(users.admin).save(); // eslint-disable-line
+  const editorUser = await new Users(users.editor).save(); // eslint-disable-line
+  const userUser = await new Users(users.user).save(); // eslint-disable-line
   done();
 });
 
@@ -31,7 +31,7 @@ describe('Auth Middleware', () => {
   };
 
   describe('user authentication', () => {
-    let cachedToken;
+    let cachedToken; // eslint-disable-line
 
     it('fails a login for a user (admin) with the incorrect basic credentials', () => {
       let req = {

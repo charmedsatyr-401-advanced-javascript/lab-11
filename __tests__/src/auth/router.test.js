@@ -21,7 +21,7 @@ afterAll(supergoose.stopDB);
 describe('Auth Router', () => {
   Object.keys(users).forEach(userType => {
     describe(`${userType} users`, () => {
-      let encodedToken;
+      let encodedToken; // eslint-disable-line
       let id;
 
       it('can create one', () => {
