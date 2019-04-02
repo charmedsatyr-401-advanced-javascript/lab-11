@@ -1,5 +1,7 @@
 'use strict';
 
+const cwd = process.cwd;
+
 // 3rd Party Resources
 const express = require('express');
 const cors = require('cors');
@@ -26,10 +28,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.use('/docs', express.static(`${cwd}/docs`)); // JSDoc Documentation (no authentication required)
 app.use(authRouter); // Authentication middleware
 app.use(bookRouter); // The client's target routes
 
-// Catchalls
+// Error handling
 app.use(notFound);
 app.use(errorHandler);
 
