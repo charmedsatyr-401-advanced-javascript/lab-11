@@ -9,11 +9,12 @@
 const User = require('./users-model.js');
 
 /**
+ * Parses authorization headers and uses internal methods to validate user.
  * @function
  * @name authentication middleware
- * @param  {object} req
- * @param  {object} res
- * @param  {object} next
+ * @param req {object} Express request object
+ * @param res {object} Express response object
+ * @param next {function} Express middleware function
  */
 module.exports = (req, res, next) => {
   try {
@@ -30,8 +31,9 @@ module.exports = (req, res, next) => {
   }
 
   /**
+   * Parses authentication header and passes it into a user model method `authenticateBasic`
    * @function
-   * @name _authBasic Parses authentication header and passes it into a user model method `authenticateBasic`
+   * @name _authBasic
    * @param authString {string} Base64 encoding of the `id` and `password` joined by a colon.
    */
   function _authBasic(authString) {
@@ -44,8 +46,9 @@ module.exports = (req, res, next) => {
   }
 
   /**
+   * Attaches `user` object and authentication token to the request object.
    * @function
-   * @name _authenticate Attaches `user` object and authentication token to the request object.
+   * @name _authenticate
    * @param user {object} The `user` object validated by `bcrypt`
    */
   function _authenticate(user) {
@@ -58,8 +61,9 @@ module.exports = (req, res, next) => {
     }
   }
   /**
+   * Calls the `next` middleware with an error object.
    * @function
-   * @name _authError Calls the `next` middleware with an error object.
+   * @name _authError
    */
   function _authError() {
     next({ status: 401, statusMessage: 'Unauthorized', message: 'Invalid User ID/Password' });
