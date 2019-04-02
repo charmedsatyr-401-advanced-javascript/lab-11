@@ -121,7 +121,7 @@ This module creates a new instance of the mongoose `users` model and saves it to
 
 As a pre-save hook for the `users` model, the `bcrypt` library hashes the password and stores the password as a hash rather than in plaintext.
 
-The saved `users` object is returned to the `/signup` route handler, and the handler invokes the `users` method `generateToken` on it. This method creates a `tokenData` object using the `_id` of new instance of `user` and a `capabilities` key. It then uses the `jsonwebtoken` library's `sign` method (salted by an environment `SECRET` or a fallback) to generate a cryptographic hash for this `tokenData` object. It returns the hash to the `/signup` route handler, which appends it to the `request` as a `token` property.
+The saved `users` object is returned to the `/signup` route handler, and the handler invokes the `users` method `generateToken` on it. This method creates a `tokenData` object using the `_id` of new instance of `user` and a `capabilities` key. It then uses the `jsonwebtoken` library's `sign` method (salted by an environment `SECRET` or a fallback) to generate a cryptographic signature for this `tokenData` object. It returns the signature to the `/signup` route handler, which appends it to the `request` as a `token` property.
 
 The route handler then appends the full `user` object to the request as its `user` property, sets the response header with generated token, and adds an authentication cookie that corresponds to the token. The authentication token is then sent as the route's response.
 
@@ -148,7 +148,7 @@ The `user.comparePassword` method on the user calls `bcrypt`'s `compare` functio
 
 Back to `middleware.js` and the `authenticateBasic` method. It receives either the `user` object or `null` from `users.comparePassword`. If it gets the `user` object, it calls `_authenticate` method using that `user` object as an argument as the resolution of its promise.
 
-As with the handler for the `/signup` route, the `_authenticate` method uses the `user.generateToken` method to assign a `token` to the request and appends a `user` property to the request object. If you'll recall, `generateToken` just created a `tokenData` object fom the user's `_id` and `capabilities` and used `jwt.sign` to sign it (create a hash) using the environment `SECRET`, and return the signature.
+As with the handler for the `/signup` route, the `_authenticate` method uses the `user.generateToken` method to assign a `token` to the request and appends a `user` property to the request object. If you'll recall, `generateToken` just created a `tokenData` object fom the user's `_id` and `capabilities` and used `jwt.sign` to sign it (create a signature) using the environment `SECRET`, and return the signature.
 
 Now that `_authenticate(user)` has completed, it invokes the `next` method. The `auth` middleware is satisfied.
 
@@ -177,7 +177,6 @@ If the client is not authorized for these routes, it will receive an `Invalid Us
 
   * The `auth` middleware is tested to properly authenticate users, given correct and incorrect credentials.
   * The `router` middleware is tested to ensure it sends a token in response to `POST` requests to the `/signup` and `/signin` requests.
-
 
 * What assertions need to be / should be made?
   
