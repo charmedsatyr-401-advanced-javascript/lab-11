@@ -1,171 +1,171 @@
-# lab-11
-LAB - Authentication
 ![CF](http://i.imgur.com/7v5ASc8.png) LAB
 =================================================
 
-## Lab 10: Book App
+## Lab 11: Authentication
 
 ### Author: Joseph Wolfe
 
 ### Links and Resources
-* [PR](https://github.com/charmedsatyr-401-advanced-javascript/lab-09/pull/1)
-* [![Build Status](https://travis-ci.org/charmedsatyr-401-advanced-javascript/lab-10.svg?branch=submission)](https://travis-ci.org/charmedsatyr-401-advanced-javascript/lab-10)
-* [front end](https://shielded-crag-86438.herokuapp.com/)
+* [PR](https://github.com/charmedsatyr-401-advanced-javascript/lab-11/pull/1)
+* [![Build Status](https://travis-ci.org/charmedsatyr-401-advanced-javascript/lab-11.svg?branch=submission)](https://travis-ci.org/charmedsatyr-401-advanced-javascript/lab-11)
+* [front end](https://banana-sundae-76922.herokuapp.com/)
 
 #### Documentation
-* [jsdoc](https://shielded-crag-86438.herokuapp.com/docs)
-* [swagger](https://shielded-crag-86438.herokuapp.com/api/v1/docs)
+* [jsdoc](https://banana-sundae-76922.herokuapp.com/docs)
 
 ### Modules
+
 `./index.js`
 
-`./src/server.js`
+`./src/app.js`
 
-`./src/api/v1.js`
+`.src/auth/middleware.js`
 
-`./src/middleware/404.js`
+`.src/auth/router.js`
 
-`./src/middleware/500.js`
+`.src/auth/users-model.js`
 
-`./src/middleware/model-finder.js`
+`.src/middleware/404.js`
 
-`./src/models/mongo/mongo-model.js`
+`.src/middleware/error.js`
 
-`./src/models/mongo/books/books-model.js`
-
-`./src/models/mongo/books/books-schema.js`
-
-`./src/models/mongo/bookshelf/bookshelf-schema.js`
-
-`./src/models/sql/sql-model.js`
-
-`./src/models/sql/books/books-model.js`
+`.src/routes/books.js`
 
 -----
-
 
 #### `./index.js`
 ##### Exported Values and Methods from `./index.js`
 This is the entry point of the application. When the app starts, the database connections are initiated.
 
-If `DB=SQL` is set in the environment configuration, an instance of the PostgreSQL `client` will be exported to `./src/models/sql/books/books-model.js` to instantiate an instance of the `Books` class.
-
 -----
 
-#### `.src/server.js`
+#### `.src/app.js`
 ##### Exported Values and Methods from `./src/app.js`
-This module sets the view engine and routes and exports a `start` method for the Express server.
+This module instantiates the app, sets middleware, routes, and controllers, and exports an `app` and `start` method for the Express server.
 
 -----
 
+#### `.src/auth/middleware.js`
+##### Exported Values and Methods from `middleware.js`
+This authentication middleware splits the user's request headers and uses internal methods `_authBasic` and `_authenticate`, and their internal calls, to further parse and validate them. Internal method `_authError` handles errors from invalid request headers.
 
-#### `.src/api/v1.js`
-##### Exported Values and Methods from `v1.js`
-This module exports an Express `router` that supports the following endpoints and associated content regardless of whether a PostgreSQL or MongoDB database is used:
+-----
 
-###### `GET`
+#### `.src/auth/router.js`
+##### Exported Values and Methods from `router.js`
+This module provides routes and associated handlers for the following authentication routes:
 
-* `/` → home page
+* `/signup` → used to create a new user account
+* `/signin` → used to authenticate a session
 
-* `/searches/new` → interface for searching the Google Books API
+Both of these routes take `POST` requests.
 
-* `/books/:id` → view a specific book in the collection
+The module exports an Express `router` object used in `./src/app.js`.
 
-###### `POST`
+-----
 
-* `/books` → post book details to be stored in the database collection
+#### `.src/auth/users-model.js`
+##### Exported Values and Methods from `users-model.js`
+This module defines a mongoose schema `Users` with the following properties:
+```
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  email: { type: String },
+  role: { type: String, required: true, default: 'user', enum: ['admin', 'editor', 'user'] },
+```
 
-* `/searches` → post a search request to the Google Books API
+It then adds a custom `pre`-save hook and the additional custom methods `authenticateBasic`, `comparePassword`, and `generateToken`, used in authentication and session management.
 
-###### `PUT`
+-----
 
-* `/books/:id` → modify a book with the given `id`
-
-###### `DELETE`
-
-* `/books/:id` → delete a book with the given `id`
-
----
 #### `.src/middleware/404.js`
 ##### Exported Values and Methods from `404.js`
 Unknown path fallback middleware.
 
 -----
 
-#### `./src/middleware/500.js`
-##### Exported Values and Methods from `500.js`
+#### `./src/middleware/error.js`
+##### Exported Values and Methods from `error.js`
 Server error handling middleware.
 
 -----
 
-#### `./src/middleware/model-finder.js`
-##### Exported Values and Methods from `model-finder.js`
-Middleware to set the correct path for the database models and request handlers based on the `DB` environmental variable.
+#### `./src/routes/books.js`
+##### Exported Values and Methods from `books.js`
+This module provides routes and associated handlers for the following authentication routes:
 
-If `DB=MONGO`, the models in `./src/models/mongo/` will be used.
+* `/books` → returns an array of `book` objects with the `title` key.
+* `/books/:id` → returns a `book` object with the given `id`.
 
-If `DB=SQL`, the models in `./src/models/sql/` will be used.
+Both of these routes take `GET` requests and require client authentication via the `auth` middleware exported from `./src/auth/middleware.js` for access.
 
-The operation of the application is identical regardless of which type of database is used.
-
------
-#### `./src/models/mongo/mongo-model.js` and `./src/models/sql/sql-model.js`
-##### Exported Values and Methods from `mongo-model.js` and `sql-model.js`
-`get()` → `Promise.all array` → Array containing a single object that itself contains an array of objects `rows` with details of books from database and a count `rowCount` of the number of books. This structure is expected by the view engine.
-
-`get(id)` → `Promise.all array` → Array containing two objects. Index `0` is an object that contains book data as described above. Index `1` also has the `rows` and `rowCount` keys but contains data about the bookshelf on which the book is stored.
-
-`post(request.body)` → `Promise` → new record in database, formatted as an object with `rows` and `rowCount` keys as above.
-
-`put(request.body id)` → `Promise` → modified `record` from database
-
-`delete(id)` → `Promise` → deleted `record` from database
-
------
-
-#### `./src/models/mongo/books/books-model.js`
-##### Exported Values and Methods from `books-model.js`
-Exports an instance of a `Books` model that extends the class `MongoModel` from `.src/models/mongo/mongo-model.js` instantiated with a `books` schema from `./src/models/mongo/books/books-schema.js`.
-
------
-
-#### `./src/models/mongo/books/books-schema.js`
-##### Exported Values and Methods from `books-schema.js`
-Exports the Mongoose schema `books`, which has the following keys and configuration:
-```
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  isbn: { type: String, required: true },
-  image_url: { type: String, required: true },
-  description: { type: String, required: true },
-  bookshelf_id: { type: String, required: true },
-```
------
-
-#### `./src/models/mongo/bookshelf/bookshelf-schema.js`
-##### Exported Values and Methods from `bookshelf-schema.js`
-Exports the Mongoose schema `bookshelf`, which has the following keys and configuration:
-```
-  name: { type: String, required: true, lowercase: true },
-```
------
-
-#### `./src/models/sql/books/books-model.js`
-##### Exported Values and Methods from `books-model.js`
-Exports an instance of a `Books` model that extends the class `SQLModel` from `.src/models/sql/sql-model.js` instantiated with an instance of the running SQL `client` from `./index.js`.
+The module exports an Express `router` object used in `./src/app.js`.
 
 -----
 
 #### Running the app
-* On a local machine, make sure to configure your `.env` file with `SQL_DATABASE_URL`, `MONGO_URI`, `PORT`, and `DB` values.
-
-* If you are running the application with a PostgreSQL database, make sure the environmental variable `DB=SQL` is set and that your local installation of PostgreSQL is properly configured.
-
-* If you are running the application with a MongoDB database, make sure the environmental variable `DB=MONGO` is set and that your local installation of MongoDB is properly configured and running.
-
+##### Instructions and process walkthrough (aka *Lab-11: The Novel*)
+* Start a MongoDB database on your local machine that uses the `data` folder.
 * Start the server on your local machine with `npm run start` or `npm run watch`.
 
-* You can use the client UI or other tools to interact with the routes as indicated above.
+###### Signing Up
+Using the `httpie` package or a similar program, send the following command to the server (you may use a custom username and password throughout):
+
+* `echo '{"username":"j", "password":"omg"}' | http post :3000/signup`
+
+This `POST`s a JSON object to the `/signup` route.
+
+After running the request through application-level middleware, the `request` is directed to the `authRouter` exported from `./src/auth/router.js`.
+
+This module creates a new instance of the mongoose `users` model and saves it to the MongoDB database.
+
+As a pre-save hook for the `users` model, the `bcrypt` library hashes the password and stores the password as a hash rather than in plaintext.
+
+The saved `users` object is returned to the `/signup` route handler, and the handler invokes the `users` method `generateToken` on it. This method creates a `tokenData` object using the `_id` of new instance of `user` and a `capabilities` key. It then uses the `jsonwebtoken` library's `sign` method (salted by an environment `SECRET` or a fallback) to generate a cryptographic hash for this `tokenData` object. It returns the hash to the `/signup` route handler, which appends it to the `request` as a `token` property.
+
+The route handler then appends the full `user` object to the request as its `user` property, sets the response header with generated token, and adds an authentication cookie that corresponds to the token. The authentication token is then sent as the route's response.
+
+###### Signing In
+Using the `httpie` package or a similar program, send the following command to the server:
+
+* `http post :3000/signin -a j:omg`
+
+The `/signin` route uses the `auth` middleware in `./src/auth/middleware.js`.
+
+The `auth` middleware takes the authorization request header from the `POST` request, which look something like `Basic ejpvbWc=`.
+
+It splits this header into an `authType` ("Basic") and `authString` ("ejpvbWc="), where the `authString` is the base64 encoding of the `username` and `password` joined by a colon.
+
+The `authType` is set to lowercase. If it is in fact `basic`, the `_authBasic` method is invoked with the `authString` as an argument. Our authentication sends an error object to the error handler if the `authType` is not `basic`.
+
+The `_authBasic` handler converts the `authString` to a base64 buffer, and from there to a string. It splits it at the `:` into the username and password.
+
+`_authBasic` then invokes and returns the mongoose `User` static class method `authenticateBasic` with an `auth` object containing the username and password.
+
+The `authenticateBasic` method takes the `auth` object and queries the database for the user. If the user exists, it invokes the `user.comparePassword` method with the password.
+
+The `user.comparePassword` method on the user calls `bcrypt`'s `compare` function to compare the password to the hashed password it stored. `bcrypt` returns a promise which resolves to a Boolean value. If it's true,`users.comparePassword` returns the `user` object; otherwise it returns `null`.
+
+Back to `middleware.js` and the `authenticateBasic` method. It receives either the `user` object or `null` from `users.comparePassword`. If it gets the `user` object, it calls `_authenticate` method using that `user` object as an argument as the resolution of its promise.
+
+As with the handler for the `/signup` route, the `_authenticate` method uses the `user.generateToken` method to assign a `token` to the request and appends a `user` property to the request object. If you'll recall, `generateToken` just created a `tokenData` object fom the user's `_id` and `capabilities` and used `jwt.sign` to sign it (create a hash) using the environment `SECRET`, and return the signature.
+
+Now that `_authenticate(user)` has completed, it invokes the `next` method. The `auth` middleware is satisfied.
+
+In this case, the `auth` middleware has completed, and the server continues to the next step of the `/signin` handler, which sets an `auth` cookie using the `tokenData` signature and sends the token back to the client, which can store it to validate our session. All of this has been an effort to create a persistent state between an authenticated client and the server.
+
+###### Getting books
+Using the `httpie` package or a similar program, send either of the following commands to the server:
+
+* `http :3000/books -a j:omg`
+
+* `http :3000/books/2 -a j:omg`
+
+The `/books` route will run us through the `auth` middleware described above. Once the `auth` middleware has invoked the `next` middleware, the client will be sent a list of books.
+
+The `/books/:id` will go through the same authentication process as the `/books` route but return a single book.
+
+If the client is not authorized for these routes, it will receive an `Invalid User Id/Password` error from the `auth` middleware.
 
 #### Tests
 * How do you run tests?
@@ -174,13 +174,14 @@ Exports an instance of a `Books` model that extends the class `SQLModel` from `.
   * `npm run lint`
 
 * What assertions were made?
-None!
+
+  * The `auth` middleware is tested to properly authenticate users, given correct and incorrect credentials.
+  * The `router` middleware is tested to ensure it sends a token in response to `POST` requests to the `/signup` and `/signin` requests.
+
 
 * What assertions need to be / should be made?
-  * All methods and helper functions for the models `SQLModel` and `MongoModel` classes should be tested.
-
-  * End-to-end testing should be performed on the server and routes.
-
+  
+  * If desired, additional end-to-end testing for the `/books` or `/books:id` routes could be implemented to ensure the client receives the proper `GET` responses.
 
 #### UML
 ![UML Diagram](./docs/assets/uml.jpg)

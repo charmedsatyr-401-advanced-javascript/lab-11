@@ -20,9 +20,9 @@ const users = new mongoose.Schema({
  * A pre-save hook for the `users` object that
  * hashes passwords with `bcrypt` before they
  * are saved to the database.
- * @method
+ * @function
+ * @name users.pre
  * @param next {function} Express middleware function
-
  */
 users.pre('save', function(next) {
   bcrypt
@@ -40,7 +40,8 @@ users.pre('save', function(next) {
  * A static class method that queries the database for a user
  * and authenticates their password using the `bcrypt`-based
  * `comparePassword` method.
- * @method
+ * @function
+ * @name authenticateBasic
  * @param auth {object} Receives the `user` object
  */
 users.statics.authenticateBasic = function(auth) {
@@ -49,13 +50,21 @@ users.statics.authenticateBasic = function(auth) {
     .then(user => user && user.comparePassword(auth.password))
     .catch(console.error);
 };
-
-// Compare a plain text password against the hashed one we have saved
+/**
+ * Compare a plain text password against the hashed one we have saved
+ * @function
+ * @name comparePassword
+ * @param password {string} The password submitted from the client
+ */
 users.methods.comparePassword = function(password) {
   return bcrypt.compare(password, this.password).then(valid => (valid ? this : null));
 };
 
-// Generate a JWT from the user id and a secret
+/**
+ * Generate a JWT from the user id and a secret
+ * @function
+ * @name generateToken
+ */
 users.methods.generateToken = function() {
   let tokenData = {
     id: this._id,

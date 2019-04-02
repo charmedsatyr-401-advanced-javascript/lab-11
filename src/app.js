@@ -28,7 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/docs', express.static(`${cwd}/docs`)); // JSDoc Documentation (no authentication required)
+app.use('/', express.static(`${cwd}/docs`)); // JSDoc Documentation (no authentication required)
+app.use('/docs', express.static(`${cwd}/docs`));
 app.use(authRouter); // Authentication middleware
 app.use(bookRouter); // The client's target routes
 

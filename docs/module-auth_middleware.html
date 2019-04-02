@@ -132,11 +132,287 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id="~_authBasicParsesauthenticationheaderandpassesitintoausermodelmethod%60authenticateBasic%60"><span class="type-signature">(inner) </span>_authBasic Parses authentication header and passes it into a user model method `authenticateBasic`<span class="type-signature"></span></h4>
+
+    
+
+    
+    <h4 class="name" id="~_authBasicParsesauthenticationheaderandpassesitintoausermodelmethod%60authenticateBasic%60"><span class="type-signature">(inner) </span>_authBasic Parses authentication header and passes it into a user model method `authenticateBasic`<span class="signature">(authString)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>authString</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Base64 encoding of the `id` and `password` joined by a colon.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="auth_middleware.js.html">auth/middleware.js</a>, <a href="auth_middleware.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~_authenticateAttaches%60user%60objectandauthenticationtokentotherequestobject."><span class="type-signature">(inner) </span>_authenticate Attaches `user` object and authentication token to the request object.<span class="signature">(user)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The `user` object validated by `bcrypt`</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="auth_middleware.js.html">auth/middleware.js</a>, <a href="auth_middleware.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~_authErrorCallsthe%60next%60middlewarewithanerrorobject."><span class="type-signature">(inner) </span>_authError Calls the `next` middleware with an error object.<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
 
 
 
@@ -176,7 +452,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_middleware.js.html">auth/middleware.js</a>, <a href="auth_middleware.js.html#line31">line 31</a>
+        <a href="auth_middleware.js.html">auth/middleware.js</a>, <a href="auth_middleware.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -192,116 +468,12 @@
 
 
 
-        
-            
-<h4 class="name" id="~_authenticateAttaches%60user%60objectandauthenticationtokentotherequestobject."><span class="type-signature">(inner) </span>_authenticate Attaches `user` object and authentication token to the request object.<span class="type-signature"></span></h4>
 
 
 
 
 
 
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_middleware.js.html">auth/middleware.js</a>, <a href="auth_middleware.js.html#line44">line 44</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~_authErrorCallsthe%60next%60middlewarewithanerrorobject."><span class="type-signature">(inner) </span>_authError Calls the `next` middleware with an error object.<span class="type-signature"></span></h4>
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="auth_middleware.js.html">auth/middleware.js</a>, <a href="auth_middleware.js.html#line57">line 57</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
 
 
 
@@ -310,11 +482,118 @@
 
         
             
-<h4 class="name" id="~authenticationmiddleware"><span class="type-signature">(inner) </span>authentication middleware<span class="type-signature"></span></h4>
+
+    
+
+    
+    <h4 class="name" id="~authenticationmiddleware"><span class="type-signature">(inner) </span>authentication middleware<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
 
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -366,9 +645,19 @@
 
 
 
-        
-    
 
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     
@@ -390,7 +679,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 01 2019 23:27:13 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 02 2019 06:58:52 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

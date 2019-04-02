@@ -9,6 +9,7 @@
 const User = require('./users-model.js');
 
 /**
+ * @function
  * @name authentication middleware
  * @param  {object} req
  * @param  {object} res
@@ -29,6 +30,7 @@ module.exports = (req, res, next) => {
   }
 
   /**
+   * @function
    * @name _authBasic Parses authentication header and passes it into a user model method `authenticateBasic`
    * @param authString {string} Base64 encoding of the `id` and `password` joined by a colon.
    */
@@ -42,19 +44,21 @@ module.exports = (req, res, next) => {
   }
 
   /**
+   * @function
    * @name _authenticate Attaches `user` object and authentication token to the request object.
    * @param user {object} The `user` object validated by `bcrypt`
    */
   function _authenticate(user) {
     if (user) {
-      req.user = user;
       req.token = user.generateToken();
+      req.user = user;
       next();
     } else {
       _authError();
     }
   }
   /**
+   * @function
    * @name _authError Calls the `next` middleware with an error object.
    */
   function _authError() {
