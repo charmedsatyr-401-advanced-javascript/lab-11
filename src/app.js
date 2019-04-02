@@ -6,9 +6,14 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 // Esoteric Resources
-const errorHandler = require( './middleware/error.js');
-const notFound = require( './middleware/404.js' );
-const authRouter = require( './auth/router.js' );
+const errorHandler = require('./middleware/error.js');
+const notFound = require('./middleware/404.js');
+
+// Authentication middleware
+const authRouter = require('./auth/router.js');
+
+// Book routes
+const bookRouter = require('./routes/books.js');
 
 // Prepare the express app
 const app = express();
@@ -18,7 +23,11 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use(authRouter); // Authentication middleware
+app.use(bookRouter); // The client's target routes
 
 // Catchalls
 app.use(notFound);
@@ -26,16 +35,19 @@ app.use(errorHandler);
 
 let isRunning = false;
 
+/**
+ * Exported function to start the Express server
+ * @param port {number} Port used for the server
+ */
 module.exports = {
   server: app,
-  start: (port) => {
-    if( ! isRunning ) {
+  start: port => {
+    if (!isRunning) {
       app.listen(port, () => {
         isRunning = true;
         console.log(`Server Up on ${port}`);
       });
-    }
-    else {
+    } else {
       console.log('Server is already running');
     }
   },

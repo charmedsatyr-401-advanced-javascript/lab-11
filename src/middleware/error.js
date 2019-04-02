@@ -1,5 +1,16 @@
 'use strict';
+/**
+ * Error 500 Middleware
+ * @module middleware/error.js
+ */
 
+/**
+ * Error 500 handler - Returns a JSON object on a server error
+ * @param err {object} Express error object
+ * @param req {object} Express request object
+ * @param res {object} Express response object
+ * @param next {function} Express middleware function
+ */
 module.exports = (err, req, res, next) => {
   console.error('__SERVER_ERROR__', err);
   let error = { error: err.message || err };
