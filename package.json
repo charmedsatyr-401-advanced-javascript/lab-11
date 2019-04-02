@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
+    "lint": "eslint '**/*.js'",
     "test": "jest --verbose --coverage",
     "test-watch": "jest --verbose --coverage --watch"
   },
@@ -23,10 +24,12 @@
   },
   "homepage": "https://github.com/charmedsatyr-401-advanced-javascript/lab-11#readme",
   "dependencies": {
+    "babel-eslint": "^10.0.1",
     "bcrypt": "^3.0.5",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
     "dotenv": "^7.0.0",
+    "eslint": "^5.16.0",
     "express": "^4.16.4",
     "jest": "^24.6.0",
     "jsonwebtoken": "^8.5.1",

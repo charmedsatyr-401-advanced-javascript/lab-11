@@ -10,18 +10,14 @@ router.get('/books/:id', handleGetOne);
 function handleGetAll(req, res, next) {
   let books = {
     count: 3,
-    results: [
-      { title:'Moby Dick' },
-      { title:'Little Women' },
-      { title: 'Eloquent Javascript' },
-    ],
+    results: [{ title: 'Moby Dick' }, { title: 'Little Women' }, { title: 'Eloquent Javascript' }],
   };
   res.status(200).json(books);
 }
 
 function handleGetOne(req, res, next) {
   let book = {
-    title:'Moby Dick',
+    title: 'Moby Dick',
   };
   res.status(200).json(book);
 }
