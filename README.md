@@ -74,7 +74,7 @@ This module defines a mongoose schema `Users` with the following properties:
   role: { type: String, required: true, default: 'user', enum: ['admin', 'editor', 'user'] },
 ```
 
-It then adds a custom `pre`-save hook and the additional custom methods `authenticateBasic`, `comparePassword`, and `generateToken`, used in authentication and session management.
+It then adds a custom pre-save hook and the additional custom methods `authenticateBasic`, `comparePassword`, and `generateToken`, used in authentication and session management.
 
 -----
 
@@ -111,11 +111,11 @@ The module exports an Express `router` object used in `./src/app.js`.
 ###### Signing Up
 Using the `httpie` package or a similar program, send the following command to the server (you may use a custom username and password throughout):
 
-* `echo '{"username":"j", "password":"omg"}' | http post :3000/signup`
+* `echo '{"username":"student", "password":"codefellows"}' | http post :3000/signup`
 
 This `POST`s a JSON object to the `/signup` route.
 
-After running the request through application-level middleware, the `request` is directed to the `authRouter` exported from `./src/auth/router.js`.
+After running the request through application-level middleware, the request is directed to the `authRouter` exported from `./src/auth/router.js`.
 
 This module creates a new instance of the mongoose `users` model and saves it to the MongoDB database.
 
@@ -128,7 +128,7 @@ The route handler then appends the full `user` object to the request as its `use
 ###### Signing In
 Using the `httpie` package or a similar program, send the following command to the server:
 
-* `http post :3000/signin -a j:omg`
+* `http post :3000/signin -a student:codefellows`
 
 The `/signin` route uses the `auth` middleware in `./src/auth/middleware.js`.
 
@@ -157,9 +157,9 @@ In this case, the `auth` middleware has completed, and the server continues to t
 ###### Getting books
 Using the `httpie` package or a similar program, send either of the following commands to the server:
 
-* `http :3000/books -a j:omg`
+* `http :3000/books -a student:codefellows`
 
-* `http :3000/books/2 -a j:omg`
+* `http :3000/books/2 -a student:codefellows`
 
 The `/books` route will run us through the `auth` middleware described above. Once the `auth` middleware has invoked the `next` middleware, the client will be sent a list of books.
 
