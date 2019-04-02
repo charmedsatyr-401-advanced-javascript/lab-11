@@ -181,7 +181,8 @@ If the client is not authorized for these routes, it will receive an `Invalid Us
 
 * What assertions need to be / should be made?
   
-  * If desired, additional end-to-end testing for the `/books` or `/books:id` routes could be implemented to ensure the client receives the proper `GET` responses.
+  * Unit and end-to-end testing for the error-handling middleware could be implemented.
+  * Unit and end-to-end testing for the `/books` or `/books:id` routes and handlers could be implemented to ensure the client receives the proper `GET` responses.
 
 #### UML
 ![UML Diagram](./docs/assets/uml.jpg)
